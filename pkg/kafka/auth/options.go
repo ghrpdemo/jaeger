@@ -57,6 +57,14 @@ const (
 	suffixSASLPassword  = ".password"
 	defaultSASLUsername = ""
 	defaultSASLPassword = ""
+	
+	// SASL_SSL configuration options
+	saslSSLPrefix     = ".sasl.saslssl"
+	suffixSASLSSLUsername  = ".username"
+	suffixSASLSSLPassword  = ".password"
+	defaultSASLSSLUsername = ""
+	defaultSASLSSLPassword = ""
+	
 )
 
 func addKerberosFlags(configPrefix string, flagSet *flag.FlagSet) {
@@ -118,6 +126,18 @@ func addSASLPlainFlags(configPrefix string, flagSet *flag.FlagSet) {
 		"Password for SASL Plain authentication")
 }
 
+// Flags for SASLSSL  authentication options
+func addSASLSSLFlags(configPrefix string, flagSet *flag.FlagSet) {
+	flagSet.String(
+		configPrefix+saslSSLPrefix+suffixSASLSSLUsername,
+		defaultSASLSSLUsername,
+		"Username for SASL_SSL  authentication")
+	flagSet.String(
+		configPrefix+saslSSLPrefix+suffixSASLSSLPassword,
+		defaultSASLSSLPassword,
+		"Password for SASL_SSL authentication")
+}
+
 // AddFlags add configuration flags to a flagSet.
 func AddFlags(configPrefix string, flagSet *flag.FlagSet) {
 	flagSet.String(
@@ -128,4 +148,5 @@ func AddFlags(configPrefix string, flagSet *flag.FlagSet) {
 	addKerberosFlags(configPrefix, flagSet)
 	addTLSFlags(configPrefix, flagSet)
 	addSASLPlainFlags(configPrefix, flagSet)
+	addSASLSSLFlags(configPrefix, flagSet)
 }
